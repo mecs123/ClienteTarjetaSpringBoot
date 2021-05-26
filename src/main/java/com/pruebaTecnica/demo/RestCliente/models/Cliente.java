@@ -13,19 +13,18 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 @Entity
-@Table(name="cliente")
+@Table(name="clientes")
 public class Cliente {
     @Id
     @Column(name="idClient",unique = true,nullable = false)
     private long idClient;
-    private String nomCliente;
-    private int telefono;
-    private String direccion;
-    @Column(name = "feche_resgistro")
+    private String nomClient;
+    private int telCliente;
+    private String dirClient;
     private String registDate;
     @ElementCollection
-    @OneToMany(targetEntity=Tarjeta.class, mappedBy="idClient", fetch=FetchType.EAGER)
+    @OneToMany(mappedBy = "fk_idTarjetaCliente")
+    @Column(name = "tarjetas")
     private List<Tarjeta> tarjetaList;
 
-    //@OneToMany(cascade = CascadeType.ALL, mappedBy = "idCliente")
 }

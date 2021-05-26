@@ -6,23 +6,27 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Entity
-@Table(name = "tarjeta")
+@Table(name = "tarjetas")
 public class Tarjeta {
     @Id
-    @Column(name="idTC",unique = true,nullable = false)
+    @Column(name="Id_tarjeta",unique = true,nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idTarjeta;
-    private long idClient;
-    private String tipoTc;
+    private String nomFranqui;
     private String nameBanco;
-    private int numTc;
+    private long numCuenta;
     private long fechaExp;
     private int cvTc;
+    private long idClient;
+    @ManyToOne
+    @JoinColumn(name = "fk_idClienteTarjeta")
+    private Cliente fk_idTarjetaCliente;
 
 
 

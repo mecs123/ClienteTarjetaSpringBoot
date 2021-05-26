@@ -35,7 +35,7 @@ public class PruebaTecnicaBackendApplication {
 			http.csrf().disable()
 					.addFilterAfter(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
 					.authorizeRequests()
-					.antMatchers(HttpMethod.POST, "/v1/registro").permitAll()
+					.antMatchers(HttpMethod.POST, "/registro").permitAll()
 					.anyRequest().authenticated();
 		}
 	}
