@@ -17,6 +17,7 @@ public class ClienteDTO {
     private int telCliente;
     private String dirClient;
     private String registDate;
+    private long tarjetaId;
     private List<Tarjeta> tarjetaList;
 
 

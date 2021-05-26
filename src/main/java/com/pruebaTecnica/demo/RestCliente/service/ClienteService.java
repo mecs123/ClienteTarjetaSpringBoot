@@ -4,9 +4,13 @@ package com.pruebaTecnica.demo.RestCliente.service;
 import com.pruebaTecnica.demo.RestCliente.ClienteDTO;
 import com.pruebaTecnica.demo.RestCliente.models.Cliente;
 import com.pruebaTecnica.demo.RestCliente.repository.ClienteRepositories;
+import com.pruebaTecnica.demo.RestTarjeta.models.Tarjeta;
+import com.pruebaTecnica.demo.RestTarjeta.models.TarjetaDto;
+import com.pruebaTecnica.demo.RestTarjeta.repository.TarjetaRepositories;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -15,6 +19,8 @@ public class ClienteService implements ClienteServiceInterface{
 
     @Autowired
     ClienteRepositories clienteRepository;
+    @Autowired
+    TarjetaRepositories tarjetaRepositories;
 
 
     @Override
@@ -25,8 +31,19 @@ public class ClienteService implements ClienteServiceInterface{
         cliente.setTelCliente(clienteDTO.getTelCliente());
         cliente.setDirClient(clienteDTO.getDirClient());
         cliente.setRegistDate(clienteDTO.getRegistDate());
-
-        return clienteRepository.save(cliente);
+        List<Tarjeta> optionalTarjeta = clienteDTO.getTarjetaList();
+        Tarjeta tarjeta = new Tarjeta();
+        for (Tarjeta datos:clienteDTO.getTarjetaList()){
+            datos.setIdClient(clienteDTO.getIdClient());
+            datos.setNumCuenta(clienteDTO.getIdClient());
+            cliente.setTarjetaList(clienteDTO.getTarjetaList());
+            optionalTarjeta.add(tarjeta);
+            cliente.setTarjetaList(optionalTarjeta);
+            Tarjeta tarjetaDto = tarjetaRepositories.save(tarjeta);
+            cliente.setFk_idTarjetaCliente(tarjetaDto.getIdTarjeta());
+            clienteRepository.save(cliente);
+        }
+        return cliente;
     }
 
     @Override

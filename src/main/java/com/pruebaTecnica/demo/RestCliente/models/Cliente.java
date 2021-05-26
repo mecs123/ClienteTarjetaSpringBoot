@@ -4,6 +4,7 @@ import com.pruebaTecnica.demo.RestTarjeta.models.Tarjeta;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.repository.cdi.Eager;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -22,8 +23,9 @@ public class Cliente {
     private int telCliente;
     private String dirClient;
     private String registDate;
+    private long fk_idTarjetaCliente;
     @ElementCollection
-    @OneToMany(mappedBy = "fk_idTarjetaCliente")
+    @OneToMany(mappedBy = "fk_idTarjetaCliente",fetch = FetchType.EAGER)
     @Column(name = "tarjetas")
     private List<Tarjeta> tarjetaList;
 
