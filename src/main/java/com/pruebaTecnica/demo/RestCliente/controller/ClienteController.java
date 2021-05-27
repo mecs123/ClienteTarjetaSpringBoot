@@ -46,8 +46,8 @@ public class ClienteController {
 
 
     @GetMapping(path = "/cliente/{id}")
-    public Optional<Cliente> obtenerUsuarioPorId(@PathVariable("id") Long id) {
-        return this.clienteServiceInterface.getClienteID(id);
+    public ResponseEntity<ClienteDTO> getallClienteById(@PathVariable("id") Long id) {
+        return new ResponseEntity<ClienteDTO>(clienteServiceInterface.getClienteID(id).get(),HttpStatus.OK);
     }
 
 

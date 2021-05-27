@@ -23,10 +23,5 @@ public class Cliente {
     private int telCliente;
     private String dirClient;
     private String registDate;
-    private long fk_idTarjetaCliente;
-    @ElementCollection
-    @OneToMany(mappedBy = "fk_idTarjetaCliente",fetch = FetchType.EAGER)
-    @Column(name = "tarjetas")
-    private List<Tarjeta> tarjetaList;
 
 }

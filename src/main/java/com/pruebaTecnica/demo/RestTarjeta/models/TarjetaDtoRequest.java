@@ -11,17 +11,10 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Data
 
-public class TarjetaDto {
+public class TarjetaDtoRequest {
 
-    private int idTarjeta;
     private String nomFranqui;
-    private String nameBanco;
-    private long numCuenta;
-    private long fechaExp;
-    private int cvTc;
     private long idClient;
-    private Cliente clientes;
-
 
 
 
