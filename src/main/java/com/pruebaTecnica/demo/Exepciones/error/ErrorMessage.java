@@ -1,4 +1,4 @@
-package com.pruebaTecnica.demo.RestCliente.exepciones.error;
+package com.pruebaTecnica.demo.Exepciones.error;
 
 import java.util.Date;
 

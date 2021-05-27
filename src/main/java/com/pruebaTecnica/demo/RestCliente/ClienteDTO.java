@@ -12,12 +12,12 @@ import java.util.List;
 @Data
 public class ClienteDTO {
 
-    private long idClient;
+    private long idCodCliente;
+    private long idDocClient;
     private String nomClient;
     private int telCliente;
     private String dirClient;
     private String registDate;
-    private long tarjetaId;
     private List<Tarjeta> tarjetaList;
 
 

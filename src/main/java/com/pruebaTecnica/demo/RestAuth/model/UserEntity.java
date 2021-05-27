@@ -4,15 +4,21 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class User {
-
-	private String user;
+@Entity
+@Table(name = "user")
+public class UserEntity {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long idUser;
+	private String userEmail;
 	private String token;
 	private String pass;
-	private long idUser;
+
 
 
 }

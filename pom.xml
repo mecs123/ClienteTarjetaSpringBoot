@@ -65,7 +65,10 @@
 			<artifactId>spring-security-web</artifactId>
 			<version>5.3.5.RELEASE</version>
 		</dependency>
-
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+		</dependency>
 
 		<!-- JSON WEB TOKEN -->
 		<dependency>

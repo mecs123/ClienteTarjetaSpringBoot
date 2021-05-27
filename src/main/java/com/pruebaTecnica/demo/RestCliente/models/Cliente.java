@@ -14,14 +14,19 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 @Entity
-@Table(name="clientes")
+@Table(name = "clientes", uniqueConstraints={@UniqueConstraint(columnNames={"idDocClient"})})
 public class Cliente {
     @Id
-    @Column(name="idClient",unique = true,nullable = false)
-    private long idClient;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long   idCliente;
+    @Column(unique = true)
+    private long   idDocClient;
     private String nomClient;
-    private int telCliente;
+    private int    telCliente;
     private String dirClient;
     private String registDate;
+    private String email;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "cliente")
+    private List<Tarjeta> tarjetaList;
 
 }

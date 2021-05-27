@@ -1,13 +1,20 @@
 package com.pruebaTecnica.demo.RestCliente.service;
+
 import com.pruebaTecnica.demo.RestCliente.ClienteDTO;
+import com.pruebaTecnica.demo.Exepciones.ExepcionApiNuvu;
 import com.pruebaTecnica.demo.RestCliente.models.Cliente;
 import com.pruebaTecnica.demo.RestCliente.repository.ClienteRepositories;
 import com.pruebaTecnica.demo.RestTarjeta.repository.TarjetaRepositories;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.Optional;
 
+import static com.pruebaTecnica.demo.Exepciones.error.ConstantsErrorCliente.*;
+
 @Service
+@Transactional
 public class ClienteService implements ClienteServiceInterface{
 
     @Autowired
@@ -23,29 +30,40 @@ public class ClienteService implements ClienteServiceInterface{
     @Override
     public Cliente createCliente(ClienteDTO clienteDTO) {
         Cliente cliente = new Cliente();
-        cliente.setIdClient(clienteDTO.getIdClient());
+        cliente.setIdDocClient(clienteDTO.getIdDocClient());
         cliente.setNomClient(clienteDTO.getNomClient());
         cliente.setTelCliente(clienteDTO.getTelCliente());
         cliente.setDirClient(clienteDTO.getDirClient());
         cliente.setRegistDate(clienteDTO.getRegistDate());
-       return clienteRepository.save(cliente);
+        try {
+         return  clienteRepository.save(cliente);
+        }catch (Exception exception){
+          throw new ExepcionApiNuvu(EXISTCLIENT);
+        }
     }
 
     @Override
     public Optional<ClienteDTO> getClienteID(Long id) {
         ClienteDTO clienteDTO = new ClienteDTO();
-        Cliente cliente =  clienteRepository.findById(id).orElseThrow(RuntimeException::new);
+        Cliente cliente =  clienteRepository.findById(id).orElseThrow(() -> new ExepcionApiNuvu(NOTFOUNDCLIENT));
+        clienteDTO.setIdCodCliente(cliente.getIdCliente());
         clienteDTO.setTelCliente(cliente.getTelCliente());
+        clienteDTO.setIdDocClient(cliente.getIdDocClient());
         clienteDTO.setDirClient(cliente.getDirClient());
         clienteDTO.setNomClient(cliente.getNomClient());
-        clienteDTO.setTarjetaList(tarjetaRepositories.findAllByIdClient(id));
-        return Optional.of(clienteDTO);
+        clienteDTO.setRegistDate(cliente.getRegistDate());
+        try {
+            clienteDTO.setTarjetaList(tarjetaRepositories.findAllByIdClient(id));
+            return Optional.of(clienteDTO);
+        }catch (Exception exepcion){
+            throw  new ExepcionApiNuvu(NOTFOUNDIDTARJETA);
+        }
     }
 
     @Override
     public Cliente updateliente(ClienteDTO clienteDTO) {
-        Cliente cliente = clienteRepository.findById(clienteDTO.getIdClient()).orElseThrow(RuntimeException::new);
-        cliente.setIdClient(clienteDTO.getIdClient());
+        Cliente cliente = clienteRepository.findById(clienteDTO.getIdCodCliente()).orElseThrow(() -> new ExepcionApiNuvu(NOTFOUNDCLIENT));
+        cliente.setIdDocClient(clienteDTO.getIdDocClient());
         cliente.setNomClient(clienteDTO.getNomClient());
         cliente.setTelCliente(clienteDTO.getTelCliente());
         cliente.setDirClient(clienteDTO.getDirClient());
@@ -54,7 +72,8 @@ public class ClienteService implements ClienteServiceInterface{
 
     @Override
     public void  deleteCliente(Long id) {
-        clienteRepository.findById(id).orElseThrow(RuntimeException::new);
+        clienteRepository.findById(id).orElseThrow(() -> new ExepcionApiNuvu(NOTFOUNDCLIENT));
         clienteRepository.deleteById(id);
     }
+
 }

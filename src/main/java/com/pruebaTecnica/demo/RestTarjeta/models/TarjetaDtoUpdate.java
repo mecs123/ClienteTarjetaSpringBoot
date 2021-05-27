@@ -9,11 +9,10 @@ import lombok.NoArgsConstructor;
 @Data
 public class TarjetaDtoUpdate {
 
-    private int idTarjeta;
+    private long   idTarjeta;
     private String nomFranqui;
     private String nameBanco;
     private String numCuenta;
-    private long fechaExp;
+    private String fechaExp;
     private int cvTc;
-    private long idClient;
 }

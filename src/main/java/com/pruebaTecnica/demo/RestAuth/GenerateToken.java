@@ -1,15 +1,9 @@
 package com.pruebaTecnica.demo.RestAuth;
 
-import com.pruebaTecnica.demo.RestAuth.model.User;
-import com.pruebaTecnica.demo.RestCliente.models.Cliente;
-import com.pruebaTecnica.demo.RestCliente.service.ClienteServiceInterface;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
@@ -19,6 +13,7 @@ import java.util.stream.Collectors;
 @RestController
 public class GenerateToken {
 
+	//Inicio de sesion
 	public String getJWTToken(String username) {
 		String secretKey = "mySecretKey";
 		List<GrantedAuthority> grantedAuthorities = AuthorityUtils
