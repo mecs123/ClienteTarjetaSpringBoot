@@ -18,6 +18,7 @@ public class UserEntity {
 	private String userEmail;
 	private String token;
 	private String pass;
+	private String idDocClient;
 
 
 

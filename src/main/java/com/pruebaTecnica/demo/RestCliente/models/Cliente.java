@@ -14,12 +14,11 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 @Entity
-@Table(name = "clientes", uniqueConstraints={@UniqueConstraint(columnNames={"idDocClient"})})
+@Table(name = "clientes", uniqueConstraints={@UniqueConstraint(columnNames={"email"})})
 public class Cliente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long   idCliente;
-    @Column(unique = true)
     private long   idDocClient;
     private String nomClient;
     private int    telCliente;

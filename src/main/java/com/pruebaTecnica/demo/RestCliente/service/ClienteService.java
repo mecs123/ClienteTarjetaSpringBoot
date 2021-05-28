@@ -62,6 +62,7 @@ public class ClienteService implements ClienteServiceInterface{
 
     @Override
     public Cliente updateliente(ClienteDTO clienteDTO) {
+
         Cliente cliente = clienteRepository.findById(clienteDTO.getIdCodCliente()).orElseThrow(() -> new ExepcionApiNuvu(NOTFOUNDCLIENT));
         cliente.setIdDocClient(clienteDTO.getIdDocClient());
         cliente.setNomClient(clienteDTO.getNomClient());
